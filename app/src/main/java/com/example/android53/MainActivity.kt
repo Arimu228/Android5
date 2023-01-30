@@ -17,11 +17,7 @@ class MainActivity : AppCompatActivity() {
         initialize()
         listeners()
 
-
-
         setContentView(binding.root)
-
-
     }
 
     private fun listeners() {
@@ -37,33 +33,29 @@ class MainActivity : AppCompatActivity() {
         viewModel._count.observe(this) { count ->
             binding.textView.text = count.toString()
 
-            if (count > 10  ) {
-
-                val snackbar = Snackbar.make(binding.root, "НЕГР СТАЛ ПАХАТЬ", Snackbar.LENGTH_LONG)
-                snackbar.show()
-            }else if (count < 0){
-                val snackbar = Snackbar.make(binding.root, "НЕГР СДОХ", Snackbar.LENGTH_LONG)
-                snackbar.show()
-            }
-
         }
-
+        viewModel._Snack.observe(this){
+            it.show()
+        }
     }
-
-
-
 
     private fun initialize() {
         viewModel = ViewModelProvider(this)[ViewModel::class.java]
     }
 
     private fun disincrease() {
-        viewModel.disincrease()
+        viewModel.disincrease(binding.root)
     }
 
     private fun increase() {
-        viewModel.increase()
+        viewModel.increase(binding.root)
     }
 
-
 }
+
+
+
+
+
+
+
